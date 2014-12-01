@@ -18,7 +18,7 @@ public class ImageTools {
          * @param seuil
          * @return 
          */
-        public void seuillagePixel (Pixel pixel, int seuil){
+        public static void seuillagePixel (Pixel pixel, int seuil){
             
             if (pixel.getLevel() < seuil){
                 pixel.setLevel(0);
@@ -33,7 +33,7 @@ public class ImageTools {
          * @param image
          * @param seuil 
          */
-        public void seuillageImage (Image image, int seuil) {
+        public static void seuillageImage (Image image, int seuil) {
             for (Pixel p : image.getPixels()) {
                 seuillagePixel(p, seuil);
             }
@@ -45,7 +45,7 @@ public class ImageTools {
          * @param image
          * @param coeff 
          */
-       public void enlargeImage (Image image, int coeff) {
+       public static void enlargeImage (Image image, int coeff) {
            image.setHeight(coeff*image.getHeight());
            image.setWidth(coeff*image.getWidth());
            ArrayList<Pixel> newPixelList = new ArrayList<>();
