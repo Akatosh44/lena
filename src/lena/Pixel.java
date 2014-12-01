@@ -108,13 +108,13 @@ public class Pixel {
          * @param seuil
          * @return 
          */
-        public int seuillage (int seuil){
-            int levelSeuille = 0;
+        public void seuillage (int seuil){
+            
             if (this.level < seuil){
-                levelSeuille = 0;
+                this.level = 0;
             }
-            else levelSeuille = 255;
-            return levelSeuille;
+            else this.level = 255;
+            
             
         }
 }
