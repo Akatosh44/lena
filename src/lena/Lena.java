@@ -15,7 +15,8 @@ public class Lena {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        Image test = PGMTools.readPGM("lena.pgm");
+        PGMTools.writePGM("lena2.pgm", test);
         
       
       
