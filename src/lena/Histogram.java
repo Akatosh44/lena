@@ -16,17 +16,26 @@ public class Histogram {
 	private int HEIGHT = 100;
 	private int WIDTH = 255;
 	
-	
+	/**
+	 * Generator
+	 */
 	public Histogram(){
-		this.histogram = new Image();
+		this.histogram = new Image("histogram");
 		this.image = new Image();
 	}
 	
+	/**
+	 * Generator with an Image
+	 * @param image
+	 */
 	public Histogram(Image image){
-		this.histogram = new Image(image.getName(),WIDTH,HEIGHT);
+		this.histogram = new Image(image.getName()+"_histogram",WIDTH,HEIGHT);
 		this.image = new Image(image);
 	}
 	
+	/**
+	 * Generate the histogram
+	 */
 	public void generate(){
 		int[] levels = new int[256];
 		int max = 0;
@@ -59,6 +68,18 @@ public class Histogram {
 				}
 			}
 		}
+		//Setting the histogram pixels
+		this.histogram.setPixels(pixelList);
 		
 	}
+	
+	/**
+	 * Getter histogram
+	 * @return
+	 */
+	public Image getHistogram(){
+		return this.histogram;
+	}
+	
+	
 }
