@@ -37,6 +37,29 @@ public class Image {
     }
     
     /**
+     * Copy constructor
+     * @param img 
+     */
+    public Image(Image img){
+        this.name = img.getName();
+        this.height = img.getHeight();
+        this.width = img.getWidth();
+        this.Pixels = img.getPixels();
+    }
+    
+    /**
+     * Constructor with Paramaters name width and height
+     * @param name
+     * @param width
+     * @param height 
+     */
+    public Image(String name, int width, int height){
+        this();
+        this.width = width;
+        this.height = height;
+    }
+    
+    /**
      * Ful Constructor
      * @param name
      * @param width
@@ -117,7 +140,9 @@ public class Image {
      */
     @Override
     public String toString(){
-        return this.name;
+        String s = "Name: " + this.name +"Width " + this.width + "Height: ";
+        s = s + this.height + "Pixels number: " +  Pixels.size();
+        return s;
     }
     
     
