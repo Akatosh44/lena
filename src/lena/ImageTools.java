@@ -45,22 +45,20 @@ public class ImageTools {
          * @param image
          * @param coeff 
          */
-       public static void enlargeImage (Image image, int coeff) {
-           image.setHeight(coeff*image.getHeight());
-           image.setWidth(coeff*image.getWidth());
+       public static Image enlargeImage (Image image, int coeff) {
            ArrayList<Pixel> newPixelList = new ArrayList<>();
+           Image newImage = new Image(image.getName()+"_large",coeff*image.getHeight(),coeff*image.getWidth(),newPixelList);
            for (Pixel p : image.getPixels()) {
-               p.setX(coeff*p.getX());
-               p.setY(coeff*p.getY());
+               Pixel newP = new Pixel (coeff*p.getX(),coeff*p.getY(),p.getLevel());
                for (int i=0; i<coeff; i++) {
                    for (int j=0; j<coeff; j++) {
-                   Pixel newP = new Pixel(p.getX()+i , p.getY()+j, p.getLevel());
-                   newPixelList.add(newP);
+                   Pixel newNeighbor = newImage.getPixel(newP.getX()+i,newP.getY()+j);
+                   newNeighbor.setLevel(newP.getLevel());
+                   newPixelList.add(newNeighbor);
                    }
                }
            }
-           
-           image.setPixels(newPixelList);
+           return newImage;
        }
         
         

@@ -127,6 +127,19 @@ public class Image {
         return Pixels;
     }
     
+    public Pixel getPixel(int x, int y) {
+        Pixel pix = new Pixel (0,0,0);
+        for (Pixel p : Pixels) 
+        {
+            if ((p.getX()==x) && (p.getY()==y))
+            {
+                pix = p;
+            }
+        }
+        
+        return pix;
+    }
+    
     /**
      * Setter Pixels
      * @param Pixels 

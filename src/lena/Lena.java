@@ -17,7 +17,8 @@ public class Lena {
     public static void main(String[] args) {
         Image test = PGMTools.readPGM("lena.pgm");
         PGMTools.writePGM("lena2.pgm", test);
-        
+        Image grandTest = ImageTools.enlargeImage(test, 2);
+        PGMTools.writePGM("lena_large.pgm", grandTest);
       
       
     }
