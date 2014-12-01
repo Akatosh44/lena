@@ -102,4 +102,10 @@ public class Pixel {
 		}
 	}
         
+	/**
+	 * toString ==> "x: x, y: y, level: level"
+	 */
+	public String toString(){
+		return "x: "+ x + ", y:" + y + ", level: "+level;
+	}
 }
