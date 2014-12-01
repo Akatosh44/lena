@@ -12,7 +12,7 @@ public class ImageTools {
     
     
     /**
-         * Set a new level at 0 or 255 for seuillage
+         * Set a new level at 0 or 255 for a pixel
          * @param seuil
          * @return 
          */
@@ -25,9 +25,20 @@ public class ImageTools {
             
         }
         
-        public void seuillageImage (Image image) {
-            
+        
+        /**
+         * Set a new level at 0 or 255 for each pixel in the image
+         * @param image
+         * @param seuil 
+         */
+        public void seuillageImage (Image image, int seuil) {
+            for (Pixel p : image.getPixels()) {
+                seuillagePixel(p, seuil);
+            }
         }
+        
+        
+       
         
         
     
