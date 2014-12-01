@@ -4,6 +4,8 @@
  */
 package lena;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author avinesse
@@ -16,7 +18,7 @@ public class ImageTools {
          * @param seuil
          * @return 
          */
-        public void seuillagePixel (Pixel pixel, int seuil){
+        public static void seuillagePixel (Pixel pixel, int seuil){
             
             if (pixel.getLevel() < seuil){
                 pixel.setLevel(0);
@@ -31,14 +33,35 @@ public class ImageTools {
          * @param image
          * @param seuil 
          */
-        public void seuillageImage (Image image, int seuil) {
+        public static void seuillageImage (Image image, int seuil) {
             for (Pixel p : image.getPixels()) {
                 seuillagePixel(p, seuil);
             }
         }
         
         
-       
+        /**
+         * Enlargement of an image by a coefficient. Each pixel is duplicated coeff² times.
+         * @param image
+         * @param coeff 
+         */
+       public static void enlargeImage (Image image, int coeff) {
+           image.setHeight(coeff*image.getHeight());
+           image.setWidth(coeff*image.getWidth());
+           ArrayList<Pixel> newPixelList = new ArrayList<>();
+           for (Pixel p : image.getPixels()) {
+               p.setX(coeff*p.getX());
+               p.setY(coeff*p.getY());
+               for (int i=0; i<coeff; i++) {
+                   for (int j=0; j<coeff; j++) {
+                   Pixel newP = new Pixel(p.getX()+i , p.getY()+j, p.getLevel());
+                   newPixelList.add(newP);
+                   }
+               }
+           }
+           
+           image.setPixels(newPixelList);
+       }
         
         
     
