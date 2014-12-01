@@ -102,19 +102,4 @@ public class Pixel {
 		}
 	}
         
-        
-        /**
-         * Set a new level at 0 or 255 for seuillage
-         * @param seuil
-         * @return 
-         */
-        public void seuillage (int seuil){
-            
-            if (this.level < seuil){
-                this.level = 0;
-            }
-            else this.level = 255;
-            
-            
-        }
 }
