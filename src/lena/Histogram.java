@@ -20,7 +20,7 @@ public class Histogram {
 	 * Generator
 	 */
 	public Histogram(){
-		this.histogram = new Image("histogram");
+		this.histogram = new Image("histogram",WIDTH,HEIGHT);
 		this.image = new Image();
 	}
 	
@@ -48,19 +48,21 @@ public class Histogram {
 		}
 		
 		//Getting the max
-		for (int nb : levels){
-			if (nb>max){max=nb;}
+		for (int i=0; i<255; i++){
+			
+			if (levels[i]>max){max=levels[i];}
 		}
 		
 		//putting in percent
 		for (int i=0; i<255; i++){
-			levels[i]=levels[i]/max*100;
+			levels[i]=((int)((double)levels[i]*100.0/(double)max));
+			System.out.println(levels[i]);
 		}
 		
 		//computing
 		for (int i=0; i<HEIGHT; i++){
 			for (int j=0; j<WIDTH; j++){
-				if (levels[j] <= i){
+				if (levels[j] <= 100-i){
 					pixelList.add(new Pixel(j,i,255));
 				}
 				else {
