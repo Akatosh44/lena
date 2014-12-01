@@ -101,4 +101,14 @@ public class Pixel {
 			this.level=level;
 		}
 	}
+        
+        public int seuillage (int seuil){
+            int levelSeuille = 0;
+            if (this.level < seuil){
+                levelSeuille = 0;
+            }
+            else levelSeuille = 255;
+            return levelSeuille;
+            
+        }
 }
