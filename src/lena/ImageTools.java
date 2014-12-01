@@ -4,6 +4,8 @@
  */
 package lena;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author avinesse
@@ -38,7 +40,28 @@ public class ImageTools {
         }
         
         
-       
+        /**
+         * Enlargement of an image by a coefficient. Each pixel is duplicated coeff² times.
+         * @param image
+         * @param coeff 
+         */
+       public void enlargeImage (Image image, int coeff) {
+           image.setHeight(coeff*image.getHeight());
+           image.setWidth(coeff*image.getWidth());
+           ArrayList<Pixel> newPixelList = new ArrayList<>();
+           for (Pixel p : image.getPixels()) {
+               p.setX(coeff*p.getX());
+               p.setY(coeff*p.getY());
+               for (int i=0; i<coeff; i++) {
+                   for (int j=0; j<coeff; j++) {
+                   Pixel newP = new Pixel(p.getX()+i , p.getY()+j, p.getLevel());
+                   newPixelList.add(newP);
+                   }
+               }
+           }
+           
+           image.setPixels(newPixelList);
+       }
         
         
     
