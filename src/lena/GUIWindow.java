@@ -77,7 +77,7 @@ public class GUIWindow extends JFrame implements EventListener{
         JMenuItem saveItem = new JMenuItem("Save (.pgm)",KeyEvent.VK_S);
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         
-        JMenuItem closeItem = new JMenuItem("close");
+        JMenuItem closeItem = new JMenuItem("Close");
         closeItem.setToolTipText("Exit application");
         closeItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -108,7 +108,26 @@ public class GUIWindow extends JFrame implements EventListener{
             }
         });
         
+        JMenuItem previousItem = new JMenuItem("Previous");
+        previousItem.setToolTipText("Display the last Image");
+        previousItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                contenuImage.previousImage();
+            }
+        });
+        
+        JMenuItem nextItem = new JMenuItem("Next");
+        nextItem.setToolTipText("Display the next Image");
+        nextItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                contenuImage.nextImage();
+            }
+        });
+        
         menuActions.add(histogram);
+        menuActions.add(previousItem);
+        menuActions.add(nextItem);
         
         menu.add(openItem);
         menu.add(saveItem);
