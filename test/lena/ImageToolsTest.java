@@ -47,23 +47,22 @@ public class ImageToolsTest {
     @Test
     public void testSeuillageImage() {
         System.out.println("seuillageImage");
-        ArrayList<Pixel> pixelsTest = new ArrayList<>(100);
-        for (int i = 0; i < 100; i++) {
+        ArrayList<Pixel> pixelsTest = new ArrayList<>(20);
+        for (int i = 0; i < 20; i++) {
             pixelsTest.add(new Pixel(i, 0, i));
         }
-        Image image = new Image("test", 100, 1, pixelsTest);
+        Image image = new Image("test", 20, 1, pixelsTest);
         
 
-        ArrayList<Pixel> pixelsExpected = new ArrayList<>(100);
-        for (int j = 0; j < 51; j++) {
+        ArrayList<Pixel> pixelsExpected = new ArrayList<>(20);
+        for (int j = 0; j < 11; j++) {
             pixelsExpected.add(new Pixel(j, 0, 0));
         }
-        for (int k = 51; k < 100; k++) {
+        for (int k = 11; k < 20; k++) {
             pixelsExpected.add(new Pixel(k, 0, 255));
         }
-        Image imageExpected = new Image("test", 100, 1, pixelsExpected);
-
-        assertEquals(pixelsExpected,pixelsExpected );
+        Image ImageExpected = new Image(ImageTools.seuillageImage(image,10));
+        assertEquals(pixelsExpected,ImageExpected.getPixels());
 
 
     }
