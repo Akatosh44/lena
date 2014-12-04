@@ -61,8 +61,7 @@ public class ImageToolsTest {
         for (int k = 11; k < 20; k++) {
             pixelsExpected.add(new Pixel(k, 0, 255));
         }
-        Image ImageExpected = new Image(ImageTools.seuillageImage(image,10));
-        assertEquals(pixelsExpected,ImageExpected.getPixels());
+        assertEquals(pixelsExpected,ImageTools.seuillageImage(image,10).getPixels());
 
 
     }
