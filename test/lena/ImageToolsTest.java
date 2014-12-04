@@ -72,13 +72,15 @@ public class ImageToolsTest {
     @Test
     public void testEnlargeImage() {
         System.out.println("enlargeImage");
-        Image image = null;
-        int coeff = 0;
-        Image expResult = null;
-        Image result = ImageTools.enlargeImage(image, coeff);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList<Pixel> pixels = new ArrayList<>();
+        for(int i=0; i < 10; i++){
+            pixels.add(new Pixel (i,0,60));
+        }
+            
+        Image image = new Image("test",10,1,pixels);
+        assertEquals(2,ImageTools.enlargeImage(image, 2).getHeight());
+        assertEquals(30,ImageTools.enlargeImage(image, 3).getWidth());
+        
     }
     
     /**
