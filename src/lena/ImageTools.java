@@ -133,7 +133,6 @@ public class ImageTools {
         //putting in percent
         for (int i=0; i<256; i++){
                 levels[i]=((int)((double)levels[i]*100.0/(double)max));
-                System.out.println(levels[i]);
         }
 
         //computing
