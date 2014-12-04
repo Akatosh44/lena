@@ -33,7 +33,7 @@ public class Difference {
                // Find the same Pixel in img2
                 int i=0;
                 Pixel pix = pixelsImg2.get(i);
-                while(pix.getX() != p.getX() && pix.getY() != p.getY()){
+                while(pix.getX() != p.getX() || pix.getY() != p.getY()){
                     i++;
                     pix = pixelsImg2.get(i);
                 }
