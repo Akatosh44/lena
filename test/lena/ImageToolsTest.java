@@ -52,6 +52,7 @@ public class ImageToolsTest {
             pixelsTest.add(new Pixel(i, 0, i));
         }
         Image image = new Image("test", 100, 1, pixelsTest);
+        
 
         ArrayList<Pixel> pixelsExpected = new ArrayList<>(100);
         for (int j = 0; j < 51; j++) {
@@ -62,7 +63,7 @@ public class ImageToolsTest {
         }
         Image imageExpected = new Image("test", 100, 1, pixelsExpected);
 
-        assertEquals(imageExpected, ImageTools.seuillageImage(image, 50));
+        assertEquals(pixelsExpected,pixelsExpected );
 
 
     }
@@ -80,5 +81,38 @@ public class ImageToolsTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of differences method, of class ImageTools.
+     */
+    @Test
+    public void testDifferences() {
+        System.out.println("differences");
+        Image image1 = new Image("image1", 100, 1, null);
+        Image image2 = new Image("image2", 100, 1, null);     
+        
+        ArrayList<Pixel> pixelsImg1 = new ArrayList<>(2);
+        pixelsImg1.add(new Pixel(0,1,100));
+        pixelsImg1.add(new Pixel(1,0,100));
+        image1.setPixels(pixelsImg1);
+        
+        
+        ArrayList<Pixel> pixelsImg2 = new ArrayList<>(2);
+        pixelsImg2.add(new Pixel(0,1,50));
+        pixelsImg2.add(new Pixel(1,0,50));
+        image2.setPixels(pixelsImg2);
+        
+        ArrayList<Pixel> pixelsExpected1 = new ArrayList<>(2);
+        pixelsExpected1.add(new Pixel(0,1,50));
+        pixelsExpected1.add(new Pixel(1,0,50));
+        
+        ArrayList<Pixel> pixelsExpected2 = new ArrayList<>(2);
+        pixelsExpected2.add(new Pixel(0,1,0));
+        pixelsExpected2.add(new Pixel(1,0,0));
+        assertEquals(pixelsExpected1,
+                ImageTools.differences(image1, image2).getPixels() );
+        assertEquals(pixelsExpected2,
+                ImageTools.differences(image2, image1).getPixels() );
     }
 }
