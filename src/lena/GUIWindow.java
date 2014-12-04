@@ -73,13 +73,49 @@ public class GUIWindow extends JFrame implements EventListener{
                 }
             }
         });
-     
+        
         JMenuItem saveItem = new JMenuItem("Save (.pgm)",KeyEvent.VK_S);
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        
+        JMenuItem closeItem = new JMenuItem("close");
+        closeItem.setToolTipText("Exit application");
+        closeItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+        
+        JMenu menuActions = new JMenu("Actions");
+        
+        JMenuItem histogram = new JMenuItem("histogram");
+        histogram.setToolTipText("Display the histogram of the picture");
+        histogram.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (image!=null){
+                    JDialog popupHistogram = new JDialog();
+                    popupHistogram.setTitle(image.getName()+" histogram");
+                    
+                    popupHistogram.setLayout(null);
+                    ImagePanel histo = new ImagePanel();
+                    histo.setImage(ImageTools.histogram(image));
+                    popupHistogram.add(histo);
+                    popupHistogram.setSize(histo.getWidth()+15,histo.getHeight()+40);
+                    popupHistogram.setVisible(true);
+                    /*setImage(ImageTools.histogram(image));
+                    contenuImage.setImage(image);
+                    repaint();*/
+                }
+            }
+        });
+        
+        menuActions.add(histogram);
+        
         menu.add(openItem);
         menu.add(saveItem);
+        menu.add(closeItem);
         
         menuBar.add(menu);
+        menuBar.add(menuActions);
 
         this.setJMenuBar(menuBar);
 
