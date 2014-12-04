@@ -126,6 +126,48 @@ public class ImageTools {
        }
         
         
-    
+    public static Image histogram(Image image){
+        
+        int HEIGHT = 100;
+        int WIDTH = 255;
+        int[] levels = new int[256];
+        int max = 0;
+        ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
+
+        //Getting the number of pixels for each level
+        for (Pixel px : image.getPixels()){
+                //We add 1 to the level of the current pixel
+                levels[px.getLevel()] ++;
+        }
+
+        //Getting the max
+        for (int i=0; i<255; i++){
+
+                if (levels[i]>max){max=levels[i];}
+        }
+
+        //putting in percent
+        for (int i=0; i<255; i++){
+                levels[i]=((int)((double)levels[i]*100.0/(double)max));
+                System.out.println(levels[i]);
+        }
+
+        //computing
+        for (int i=0; i<HEIGHT; i++){
+                for (int j=0; j<WIDTH; j++){
+                        if (levels[j] <= 100-i){
+                                pixelList.add(new Pixel(j,i,255));
+                        }
+                        else {
+                                pixelList.add(new Pixel(j,i,0));
+                        }
+                }
+        }
+        
+        //Creating the histogram image
+        Image histogram= new Image(image.getName()+"_histogram",
+                                    WIDTH,HEIGHT,pixelList);
+	return histogram;
+    }
     
 }
