@@ -105,7 +105,28 @@ public class Pixel {
 	/**
 	 * toString ==> "x: x, y: y, level: level"
 	 */
+   
+        @Override
 	public String toString(){
 		return "x: "+ x + ", y:" + y + ", level: "+level;
 	}
+        
+
+        @Override
+        public boolean equals(Object obj){
+           if (obj instanceof Pixel){
+               return ( this.x == ((Pixel)obj).getX() &&
+                       this.y == ((Pixel)obj).getY() &&
+                    this.level == ((Pixel)obj).getLevel());
+           }
+           else{
+               return false;
+           }
+            
+        }
+        
+        @Override
+       public int hashCode(){
+           return ((Object)this).hashCode();
+       } 
 }
