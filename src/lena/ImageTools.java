@@ -116,7 +116,7 @@ public class ImageTools {
     public static Image histogram(Image image){
         
         int HEIGHT = 100;
-        int WIDTH = 255;
+        int WIDTH = 256;
         int[] levels = new int[256];
         int max = 0;
         ArrayList<Pixel> pixelList = new ArrayList<>();
@@ -128,13 +128,13 @@ public class ImageTools {
         }
 
         //Getting the max
-        for (int i=0; i<255; i++){
+        for (int i=0; i<256; i++){
 
                 if (levels[i]>max){max=levels[i];}
         }
 
         //putting in percent
-        for (int i=0; i<255; i++){
+        for (int i=0; i<256; i++){
                 levels[i]=((int)((double)levels[i]*100.0/(double)max));
                 System.out.println(levels[i]);
         }
