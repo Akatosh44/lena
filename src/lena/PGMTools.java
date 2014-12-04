@@ -59,7 +59,7 @@ public class PGMTools {
         Image result = new Image();
         result.setWidth(Integer.parseInt(lineStack.get(2).split("\\s+")[0]));
         result.setHeight(Integer.parseInt(lineStack.get(2).split("\\s+")[1]));
-        result.setName(fileName);
+        result.setName(fileName.substring(0, fileName.lastIndexOf('.')));
         
         for(int j=0;j<result.getHeight();j++){
             String[] split = lineStack.get(4+j).split("\\s+");
