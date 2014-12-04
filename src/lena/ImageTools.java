@@ -15,6 +15,7 @@ public class ImageTools {
     /**
      * Set a new level at 0 or 255 for a pixel
      *
+     * @param pixel
      * @param seuil
      * @return
      */
@@ -34,6 +35,7 @@ public class ImageTools {
      *
      * @param image
      * @param seuil
+     * @return image
      */
     public static Image seuillageImage(Image image, int seuil) {
         Image imageSeuil = new Image(image);
@@ -48,6 +50,7 @@ public class ImageTools {
          * Enlargement of an image by a coefficient. Each pixel is duplicated coeff² times.
          * @param image
          * @param coeff 
+         * @return
          */
        public static Image enlargeImage (Image image, int coeff) {
            ArrayList<Pixel> newPixelList = new ArrayList<>();
@@ -69,7 +72,7 @@ public class ImageTools {
         * Computes the difference of grayLevel between two imgs
         * @param img1
         * @param img2
-        * @return 
+        * @return
         */
        public static Image differences(Image img1,Image img2){
            if(img1.getWidth() == img2.getWidth() 
@@ -104,14 +107,19 @@ public class ImageTools {
            }
        }
         
-        
+    /**
+     * Creation de l'historamme de l'image envoyé
+     * 
+     * @param image
+     * @return 
+     */    
     public static Image histogram(Image image){
         
         int HEIGHT = 100;
         int WIDTH = 255;
         int[] levels = new int[256];
         int max = 0;
-        ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
+        ArrayList<Pixel> pixelList = new ArrayList<>();
 
         //Getting the number of pixels for each level
         for (Pixel px : image.getPixels()){
