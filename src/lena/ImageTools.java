@@ -70,7 +70,42 @@ public class ImageTools {
         
         return newImage;
     }
-
+    /**
+     * Reduce the size of the image by a coefficient. Each pixel is the mean of
+     * the pixels in a square of size coeff*coeff near it.
+     * @param image
+     * @param coeff
+     * @return 
+     */
+    public static Image reduceImage(Image image, int coeff){
+        ArrayList<Pixel> newPixelList = new ArrayList<>();
+        Image newImage = new Image(image.getName() + "_reduce",
+                image.getWidth()/coeff, image.getHeight()/coeff, newPixelList);
+       
+        for(int x = 0 ; x<image.getWidth()/coeff; x++){
+            for (int y =0; y <image.getHeight()/coeff; y++){
+                int newValue = 0;  
+                int count = 0;
+                for (Pixel p: image.getPixels()){
+                    if (       (p.getX() > x*coeff - coeff/2) 
+                            && (p.getX() < x*coeff + coeff/2)
+                            && (p.getY() > y*coeff - coeff/2)
+                            && (p.getY() < y*coeff + coeff/2) ){
+                        newValue += p.getLevel();
+                        count ++;
+                    } 
+                    if (count==coeff*coeff){
+                        break;
+                    }
+                }
+                newValue /= count ;
+                newPixelList.add(new Pixel(x,y, newValue));
+            }
+        }
+        
+        return newImage;
+        
+    }
     /**
      * Computes the difference of grayLevel between two imgs
      *
