@@ -38,10 +38,16 @@ public class ImageTools {
      * @return image
      */
     public static Image seuillageImage(Image image, int seuil) {
+        ArrayList<Pixel> newList = new ArrayList<>();
         Image imageSeuil = new Image(image);
+        imageSeuil.setName(imageSeuil.getName()+"_seuil"+seuil);
+        
         for (Pixel p : imageSeuil.getPixels()) {
-            p = seuillagePixel(p, seuil);
+            newList.add(seuillagePixel(p, seuil));
         }
+        
+        imageSeuil.setPixels(newList);
+        
         return imageSeuil;
     }
 
@@ -53,7 +59,7 @@ public class ImageTools {
          * @return
          */
     public static Image enlargeImage(Image image, int coeff) {
-           ArrayList<Pixel> newPixelList = new ArrayList<>();
+        ArrayList<Pixel> newPixelList = new ArrayList<>();
         Image newImage = new Image(image.getName() + "_large", coeff * image.getWidth(), coeff * image.getHeight(), newPixelList);
        
         for(int j=0;j<newImage.getHeight();j++){   
