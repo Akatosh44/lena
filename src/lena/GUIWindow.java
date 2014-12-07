@@ -147,6 +147,39 @@ public class GUIWindow extends JFrame implements EventListener{
             }
         });
         
+        
+        JMenuItem differenceItem = new JMenuItem("Difference with");
+        differenceItem.setToolTipText("Difference between the actual picture and another");
+        differenceItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (image!=null){
+                    Image image2= new Image();
+                    JFileChooser dialogue;
+                    dialogue = new JFileChooser(new File("."));
+
+                    if (dialogue.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+                        File fichier = dialogue.getSelectedFile();
+//TODO gerer exceptions taille
+                        if (fichier!=null){
+                            image2 = PGMTools.readPGM(fichier.getAbsolutePath());
+                            if (image2.getHeight()==image.getHeight() && 
+                                    image2.getWidth()==image.getWidth()){
+                                setImage(ImageTools.differences(image,image2));
+                                contenuImage.setImage(image);
+                                imgName.setText(image.getName());
+                                repaint();
+                            }
+                            else {
+                                showSizeErrorMessage();
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        });
+        
+        
         JMenuItem previousItem = new JMenuItem("Previous");
         previousItem.setToolTipText("Display the last Image");
         previousItem.addActionListener(new ActionListener() {
@@ -173,6 +206,7 @@ public class GUIWindow extends JFrame implements EventListener{
         menuActions.add(histogram);
         menuActions.add(thresholdingItem);
         menuActions.add(enlargeItem);
+        menuActions.add(differenceItem);
         menuActions.add(new JSeparator());
         menuActions.add(previousItem);
         menuActions.add(nextItem);
@@ -268,6 +302,16 @@ public class GUIWindow extends JFrame implements EventListener{
             return factor;
         }
     
+    }
+    /**
+     * Allow us to show an error message saying 
+     * "The pictures don't got the same size"
+     */
+    private void showSizeErrorMessage(){
+        JOptionPane.showMessageDialog(this,
+            "The pictures don't got the same size",
+            "Incorrect size",
+            JOptionPane.ERROR_MESSAGE);
     }
     
 }
