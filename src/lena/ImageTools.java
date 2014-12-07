@@ -82,27 +82,23 @@ public class ImageTools {
         Image newImage = new Image(image.getName() + "_reduce",
                 image.getWidth()/coeff, image.getHeight()/coeff, newPixelList);
        
-        for(int x = 0 ; x<image.getWidth()/coeff; x++){
-            for (int y =0; y <image.getHeight()/coeff; y++){
-                int newValue = 0;  
-                int count = 0;
-                for (Pixel p: image.getPixels()){
-                    if (       (p.getX() > x*coeff - coeff/2) 
-                            && (p.getX() < x*coeff + coeff/2)
-                            && (p.getY() > y*coeff - coeff/2)
-                            && (p.getY() < y*coeff + coeff/2) ){
-                        newValue += p.getLevel();
-                        count ++;
-                    } 
-                    if (count==coeff*coeff){
-                        break;
-                    }
-                }
-                newValue /= count ;
-                newPixelList.add(new Pixel(x,y, newValue));
+        int[][] levels = new int[image.getWidth()/coeff][image.getHeight()/coeff];
+        int[][] count = new int[image.getWidth()/coeff][image.getHeight()/coeff];
+        
+        for (Pixel p : image.getPixels()){
+            try {
+                levels[p.getX()/coeff][p.getY()/coeff] += p.getLevel();
+                count[p.getX()/coeff][p.getY()/coeff] ++ ;
+            } catch (Exception e) {
+            }
+
+        }
+        for (int x = 0; x<image.getWidth()/coeff;x++){
+            for (int y = 0; y < image.getHeight()/coeff; y++) {
+                newPixelList.add(new Pixel(x,y,
+                        levels[x][y]/count[x][y]));
             }
         }
-        
         return newImage;
         
     }
