@@ -53,6 +53,7 @@ public class GUIWindow extends JFrame implements EventListener{
         menu.setMnemonic(KeyEvent.VK_F);
         
         JMenuItem openItem = new JMenuItem("Open (.pgm)",KeyEvent.VK_O);
+        openItem.setToolTipText("Open a .pgm file");
         openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         openItem.addActionListener(new ActionListener(){
             @Override
@@ -75,6 +76,7 @@ public class GUIWindow extends JFrame implements EventListener{
         });
         
         JMenuItem saveItem = new JMenuItem("Save (.pgm)",KeyEvent.VK_S);
+        saveItem.setToolTipText("Save the current image as a .pgm file");
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         
         JMenuItem closeItem = new JMenuItem("Close");
@@ -99,11 +101,27 @@ public class GUIWindow extends JFrame implements EventListener{
                     ImagePanel histo = new ImagePanel();
                     histo.setImage(ImageTools.histogram(image));
                     popupHistogram.add(histo);
-                    popupHistogram.setSize(histo.getWidth()+15,histo.getHeight()+40);
+                    popupHistogram.setSize(histo.getWidth()+20,histo.getHeight()+60);
                     popupHistogram.setVisible(true);
                     /*setImage(ImageTools.histogram(image));
                     contenuImage.setImage(image);
                     repaint();*/
+                }
+            }
+        });
+        
+        JMenuItem enlargeItem = new JMenuItem("Enlarge");
+        enlargeItem.setToolTipText("Display an enlargement of the picture");
+        enlargeItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (image!=null){
+                    int factor = showEnlargementPopup();
+                    if (factor != 0){
+                        setImage(ImageTools.enlargeImage(image,factor));
+                        contenuImage.setImage(image);
+                        imgName.setText(image.getName());
+                        repaint();
+                    }
                 }
             }
         });
@@ -126,11 +144,14 @@ public class GUIWindow extends JFrame implements EventListener{
         });
         
         menuActions.add(histogram);
+        menuActions.add(enlargeItem);
+        menuActions.add(new JSeparator());
         menuActions.add(previousItem);
         menuActions.add(nextItem);
         
         menu.add(openItem);
         menu.add(saveItem);
+        menu.add(new JSeparator());
         menu.add(closeItem);
         
         menuBar.add(menu);
@@ -159,6 +180,25 @@ public class GUIWindow extends JFrame implements EventListener{
         this.image = image;
     }
 
+    private int showEnlargementPopup(){
+        int factor = 0;
+        try{
+            factor = Integer.parseInt(
+            JOptionPane.showInputDialog(this, 
+                    "Enlargement factor (int):",
+                    "1"));
+        }
+        catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this,
+                "The value is not correct.\nIt must be an int",
+                "Incorrect factor value",
+                JOptionPane.ERROR_MESSAGE);
+        }
+        finally{
+            return factor;
+        }
+    
+    }
 
     
 }
