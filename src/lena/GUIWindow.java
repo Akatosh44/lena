@@ -136,9 +136,26 @@ public class GUIWindow extends JFrame implements EventListener{
         enlargeItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (image!=null){
-                    int factor = showEnlargementPopup();
+                    int factor = showResizePopup();
                     if (factor != 0){
                         setImage(ImageTools.enlargeImage(image,factor));
+                        contenuImage.setImage(image);
+                        imgName.setText(image.getName());
+                        repaint();
+                    }
+                }
+            }
+        });
+        
+        
+        JMenuItem reduceItem = new JMenuItem("Reduce");
+        reduceItem.setToolTipText("Display a reduce version of the picture");
+        reduceItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (image!=null){
+                    int factor = showResizePopup();
+                    if (factor != 0){
+                        setImage(ImageTools.reduceImage(image,factor));
                         contenuImage.setImage(image);
                         imgName.setText(image.getName());
                         repaint();
@@ -159,7 +176,6 @@ public class GUIWindow extends JFrame implements EventListener{
 
                     if (dialogue.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
                         File fichier = dialogue.getSelectedFile();
-//TODO gerer exceptions taille
                         if (fichier!=null){
                             image2 = PGMTools.readPGM(fichier.getAbsolutePath());
                             if (image2.getHeight()==image.getHeight() && 
@@ -206,6 +222,7 @@ public class GUIWindow extends JFrame implements EventListener{
         menuActions.add(histogram);
         menuActions.add(thresholdingItem);
         menuActions.add(enlargeItem);
+        menuActions.add(reduceItem);
         menuActions.add(differenceItem);
         menuActions.add(new JSeparator());
         menuActions.add(previousItem);
@@ -253,12 +270,12 @@ public class GUIWindow extends JFrame implements EventListener{
      * return 0 if there have been an error of type.
      * @return 
      */
-    private int showEnlargementPopup(){
+    private int showResizePopup(){
         int factor = 0;
         try{
             factor = Integer.parseInt(
             JOptionPane.showInputDialog(this, 
-                    "Enlargement factor (int):",
+                    "Resize factor (int):",
                     "1"));
         }
         catch (NumberFormatException e){
