@@ -27,7 +27,11 @@ public class GUIWindow extends JFrame implements EventListener{
     private JLabel imgName;
     private ImagePanel contenuImage;
 
-    
+    /**
+     * Constructor. Allow us to display the GUI.
+     * @param w
+     * @param h 
+     */
     public GUIWindow(int w, int h){
         super("VIEWER");
         this.setSize(w, h);
@@ -38,7 +42,6 @@ public class GUIWindow extends JFrame implements EventListener{
         content = new JPanel();
         content.setSize(w, h);
         content.setLayout(null);
-        //content.setBackground(Color.red);
         this.setContentPane(content);
         contenuImage=new ImagePanel();
         imgName=new JLabel("");
@@ -161,17 +164,18 @@ public class GUIWindow extends JFrame implements EventListener{
             }
         });
         
+        
+        menu.add(openItem);
+        menu.add(saveItem);
+        menu.add(new JSeparator());
+        menu.add(closeItem);
+        
         menuActions.add(histogram);
         menuActions.add(thresholdingItem);
         menuActions.add(enlargeItem);
         menuActions.add(new JSeparator());
         menuActions.add(previousItem);
         menuActions.add(nextItem);
-        
-        menu.add(openItem);
-        menu.add(saveItem);
-        menu.add(new JSeparator());
-        menu.add(closeItem);
         
         menuBar.add(menu);
         menuBar.add(menuActions);
@@ -182,23 +186,39 @@ public class GUIWindow extends JFrame implements EventListener{
         
     }
     
-  
+    /**
+     * content getter
+     * @return 
+     */
     public JPanel getContent() {
         return content;
     }
-
+    /**
+     * content setter
+     * @param content 
+     */
     public void setContent(JPanel content) {
         this.content = content;
     }
-
+    /**
+     * Image getter
+     * @return 
+     */
     public Image getImage() {
         return image;
     }
-
+    /**
+     * Image setter
+     * @param image 
+     */
     public void setImage(Image image) {
         this.image = image;
     }
-
+    /**
+     * Allow to show a popup asking the user the enlargement factor.
+     * return 0 if there have been an error of type.
+     * @return 
+     */
     private int showEnlargementPopup(){
         int factor = 0;
         try{
@@ -218,8 +238,12 @@ public class GUIWindow extends JFrame implements EventListener{
         }
     
     }
-
-        private int showThresholdingPopup(){
+    /**
+     * Allow to show a popup asking the user the thresholdhe want to apply.
+     * return -1 if there have been an error of type or value (0-255).
+     * @return 
+     */
+    private int showThresholdingPopup(){
         int factor = 125;
         try{
             factor = Integer.parseInt(
