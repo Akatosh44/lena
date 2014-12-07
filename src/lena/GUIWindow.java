@@ -110,6 +110,24 @@ public class GUIWindow extends JFrame implements EventListener{
             }
         });
         
+        
+        JMenuItem thresholdingItem = new JMenuItem("Thresholding");
+        thresholdingItem.setToolTipText("Display a black and white version of the picture");
+        thresholdingItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (image!=null){
+                    int factor = showThresholdingPopup();
+                    if (factor >= 0 && factor <=255){
+                        setImage(ImageTools.seuillageImage(image,factor));
+                        contenuImage.setImage(image);
+                        imgName.setText(image.getName());
+                        repaint();
+                    }
+                }
+            }
+        });
+        
+        
         JMenuItem enlargeItem = new JMenuItem("Enlarge");
         enlargeItem.setToolTipText("Display an enlargement of the picture");
         enlargeItem.addActionListener(new ActionListener() {
@@ -144,6 +162,7 @@ public class GUIWindow extends JFrame implements EventListener{
         });
         
         menuActions.add(histogram);
+        menuActions.add(thresholdingItem);
         menuActions.add(enlargeItem);
         menuActions.add(new JSeparator());
         menuActions.add(previousItem);
@@ -200,5 +219,31 @@ public class GUIWindow extends JFrame implements EventListener{
     
     }
 
+        private int showThresholdingPopup(){
+        int factor = 125;
+        try{
+            factor = Integer.parseInt(
+            JOptionPane.showInputDialog(this, 
+                    "Thresholding factor (int):",
+                    "1"));
+        }
+        catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this,
+                "The value is not correct.\nIt must be an int between 0 and 255",
+                "Incorrect factor value",
+                JOptionPane.ERROR_MESSAGE);
+        }
+        finally{
+            if (factor <0 || factor >255){
+                factor = -1;
+                JOptionPane.showMessageDialog(this,
+                "The value is not correct.\nIt must be an int between 0 and 255",
+                "Incorrect factor value",
+                JOptionPane.ERROR_MESSAGE);
+            }
+            return factor;
+        }
+    
+    }
     
 }
