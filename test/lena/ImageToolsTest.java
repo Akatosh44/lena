@@ -61,7 +61,7 @@ public class ImageToolsTest {
         for (int k = 11; k < 20; k++) {
             pixelsExpected.add(new Pixel(k, 0, 255));
         }
-        assertEquals(pixelsExpected,ImageTools.seuillageImage(image,10).getPixels());
+        assertEquals(pixelsExpected,ImageTools.seuillageImage(image,11).getPixels());
 
 
     }
@@ -115,4 +115,48 @@ public class ImageToolsTest {
         assertEquals(pixelsExpected2,
                 ImageTools.differences(image2, image1).getPixels() );
     }
+    
+    /**
+     * Test of histogram method, of class ImageTools.
+     */
+    @Test
+    public void testHistogram() {
+        System.out.println("differences");
+        System.out.println("differences");
+        Image histoExpected = new Image("histoExpected", 100, 256, null);
+        Image image = new Image("image", 10, 1, null);
+        
+        ArrayList<Pixel> pixelsExpected = new ArrayList<>(100*256);
+        for(int i=0;i<100;i++){
+            for(int j=0;j<256;j++){
+                if(j==1){
+                    if(i!=0){
+                        pixelsExpected.add(new Pixel(j,i,0));
+                    }
+                    else{
+                        pixelsExpected.add(new Pixel(j,i,255));
+                    }
+                    
+                }
+                else{
+                    pixelsExpected.add(new Pixel(j,i,255));
+                }
+            }
+        }
+        
+        histoExpected.setPixels(pixelsExpected);
+        ArrayList<Pixel> pixels = new ArrayList<>(10);
+        for(int i=0;i<10;i++){
+            pixels.add(new Pixel(i,0,1));
+        }
+        image.setPixels(pixels);
+        
+        System.out.println(pixels.size() + " " + pixelsExpected.size());
+        assertEquals(pixelsExpected,
+                ImageTools.histogram(image).getPixels() );
+        
+        
+    }
+    
+    
 }
