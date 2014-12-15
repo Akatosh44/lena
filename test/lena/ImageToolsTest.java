@@ -158,5 +158,37 @@ public class ImageToolsTest {
         
     }
     
+    /**
+     * Test of reduceImagr method, of class ImageTools.
+     */
+    @Test
+     public void testReduceImage() {
+        Image image = new Image("image1", 4, 4, null);
+        Image imageExpected = new Image("image2", 2, 2, null);     
+        
+        ArrayList<Pixel> pixelsImage = new ArrayList<>(16);
+         for(int i=0;i<4;i++){
+             for(int j=0;j<4;j++){
+                if(i>=2 && j>=2){
+                    pixelsImage.add(new Pixel(i,j,255));
+                }
+                else{
+                    pixelsImage.add(new Pixel(i,j,0));
+                }
+            }
+         }
+         image.setPixels(pixelsImage);
+         
+         ArrayList<Pixel> pixelsExpected = new ArrayList<>(4);
+         pixelsExpected.add(new Pixel(0,0,0));
+         pixelsExpected.add(new Pixel(0,1,0));
+         pixelsExpected.add(new Pixel(1,0,0));
+         pixelsExpected.add(new Pixel(1,1,255));
+         assertEquals(pixelsExpected,
+                ImageTools.reduceImage(image, 2).getPixels() );
+         
+            
+    }
+    
     
 }
